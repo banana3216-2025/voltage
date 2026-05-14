@@ -1,6 +1,11 @@
-#include <test.h>
+#include <core/logger.h>
 
 int main(void) {
-      print_int(42);
+      VFATEL("A test message: %f", 3.14f);
+      VERROR("A test message: %f", 3.14f);
+      VWARN("A test message: %f", 3.14f);
+      VINFO("A test message: %f", 3.14f);
+      VDEBUG("A test message: %f", 3.14f);
+      VTRACE("A test message: %f", 3.14f);
       return 0;
 }
