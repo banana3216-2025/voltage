@@ -19,13 +19,29 @@
         vulkan-tools
         vulkan-validation-layers
 
+        xorg.libX11
+        libxkbcommon
+
         clang
         clang-tools
       ];
 
       shellHook = ''
         export VK_LAYER_PATH="${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d"
-        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [pkgs.vulkan-loader]}"
+        
+        # Define the exact libraries we need to expose
+        NIX_LIBS="${pkgs.lib.makeLibraryPath [
+          pkgs.vulkan-loader
+          pkgs.xorg.libX11
+          pkgs.xorg.libxcb
+          pkgs.libxkbcommon
+        ]}"
+
+        # Fixes runtime discovery (running your compiled app)
+        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$NIX_LIBS"
+
+        # Fixes compile-time linking (resolves the 'cannot find -lxcb' error)
+        export LIBRARY_PATH="$LIBRARY_PATH:$NIX_LIBS"
       '';
     };
   };
