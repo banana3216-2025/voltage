@@ -18,7 +18,8 @@ int main(void) {
                   platform_pump_messages(&state);
             }
       }
-      platform_shutdown(&state);
 
-      return 0;
+      // platform_shutdown(&state);
+
+      // return 0;
 }

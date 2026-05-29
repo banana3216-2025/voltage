@@ -42,6 +42,9 @@
 
         # Fixes compile-time linking (resolves the 'cannot find -lxcb' error)
         export LIBRARY_PATH="$LIBRARY_PATH:$NIX_LIBS"
+
+        export C_INCLUDE_PATH="$C_INCLUDE_PATH:${pkgs.xorg.libX11.dev}/include:${pkgs.xorg.libxcb.dev}/include"
+        export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:${pkgs.xorg.libX11.dev}/include:${pkgs.xorg.libxcb.dev}/include"
       '';
     };
   };

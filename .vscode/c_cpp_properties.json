@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/engine/src/**",
-                "${VULKAN_SDK}/include"
+                "${env:VULKAN_SDK}/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -12,10 +12,10 @@
                 "_UNICODE",
                 "VEXPORT"
             ],
-            "compilerPath": "/usr/bin/clang",
+            "compilerPath": "clang",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "linux-clang-x64"
         },
         {
             "name": "Win32",

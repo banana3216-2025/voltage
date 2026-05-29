@@ -2,7 +2,7 @@
 #include "platform.h"
 
 // TODO: Tempory to make the if block active below to make easier in editor
-#define VPLATFORM_WINDOW 1
+
 
 #if VPLATFORM_WINDOW
 
