@@ -234,7 +234,7 @@ void platform_console_write_error(const char* message, u8 color) {
 
 f64 platform_get_absolute_time() {
     struct timespec now;
-    clock_gettime(CLOCK_MONOTONIC, &now);
+    clock_gettime(CLOCK_MONOTONIC, &now); // THIS error is a fake it is real and the program will compile
     return now.tv_sec + now.tv_nsec * 0.000000001;
 }
 
