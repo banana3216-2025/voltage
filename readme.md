@@ -1,6 +1,6 @@
 # Voltage
 
-voltage is a game engine made for vulkan
+voltage is a game engine made with vulkan
 
 Required programs for compiling
 - ClangD / LLVM
