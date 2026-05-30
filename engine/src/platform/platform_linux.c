@@ -31,7 +31,7 @@ typedef struct internal_state {
     xcb_atom_t wm_delete_win;
 } internal_state;
 
-VAPI b8 platform_startup(
+b8 platform_startup(
     platform_state* plat_state,
     const char* appication_name,
     i32 x,
@@ -147,7 +147,7 @@ VAPI b8 platform_startup(
     return TRUE;
 }
 
-VAPI void platform_shutdown(platform_state* plat_stat) {
+void platform_shutdown(platform_state* plat_stat) {
     internal_state *state = (internal_state*) plat_stat->internal_state;
 
     XAutoRepeatOn(state->display);
@@ -155,7 +155,7 @@ VAPI void platform_shutdown(platform_state* plat_stat) {
 }
 
 
-VAPI b8 platform_pump_messages(platform_state* plat_state) {
+b8 platform_pump_messages(platform_state* plat_state) {
     internal_state *state = (internal_state*) plat_state->internal_state;
 
     xcb_generic_event_t *event;
@@ -222,14 +222,14 @@ void* platform_set_memory(void* dest, i32 value, u64 size) {
     return memset(dest, value, size);
 }
 
-void platform_console_write(const char* message, u8 color) {
+void platform_console_write(const char* message, u8 colour) {
     const char* colour_strings[] = {"0;41", "1;31", "1;33", "1;32", "1;34", "1;30"};
-    printf("\033[%sm%s\033[0m", colour_strings[color], message);
+    printf("\033[%sm%s\033[0m", colour_strings[colour], message);
 }
 
-void platform_console_write_error(const char* message, u8 color) {
+void platform_console_write_error(const char* message, u8 colour) {
     const char* colour_strings[] = {"0;41", "1;31", "1;33", "1;32", "1;34", "1;30"};
-    printf("\033[%sm%s\033[0m", colour_strings[color], message);
+    printf("\033[%sm%s\033[0m", colour_strings[colour], message);
 }
 
 f64 platform_get_absolute_time() {

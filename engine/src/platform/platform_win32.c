@@ -1,9 +1,6 @@
 #include "defines.h"
 #include "platform.h"
 
-// TODO: Tempory to make the if block active below to make easier in editor
-
-
 #if VPLATFORM_WINDOW
 
 #include <core/logger.h>
@@ -149,10 +146,10 @@ void *platform_set_memory(void* dest, i32 value, u64 size) {
 
 
 
-void platform_console_write(const char* message, u8 color) {
+void platform_console_write(const char* message, u8 colour) {
     HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
     static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-    SetConsoleTextAttribute(console_handle, levels[color]);
+    SetConsoleTextAttribute(console_handle, levels[colour]);
 
     OutputDebugStringA(message);
     u64 length = strlen(message);
@@ -160,10 +157,10 @@ void platform_console_write(const char* message, u8 color) {
     WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE), message, (DWORD)length, number_written, 0);
 }
 
-void platform_console_write_error(const char* message, u8 color) {
+void platform_console_write_error(const char* message, u8 colour) {
     HANDLE console_handle = GetStdHandle(STD_ERROR_HANDLE);
     static u8 levels[6] = {64, 4, 6, 2, 1, 8};
-    SetConsoleTextAttribute(console_handle, levels[color]);
+    SetConsoleTextAttribute(console_handle, levels[colour]);
 
     OutputDebugStringA(message);
     u64 length = strlen(message);
