@@ -14,6 +14,7 @@ void report_assertion_failure(const char* expression, const char* message, const
 b8 initialize_logger() {
     //TODO: create log file
 
+    VDEBUG("Logger started");
     return TRUE;
 }
 void shutdown_logger() {
