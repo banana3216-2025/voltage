@@ -46,7 +46,7 @@ VAPI void *_darray_pop_at(void *array, u64 index, void *dest);
 #define darray_push(array, value)          \
     {                                      \
         typeof(value) temp = value;        \
-        array = _darray_push(array, &temp) \
+        array = _darray_push(array, &temp);\
     }
 
 
@@ -56,10 +56,10 @@ VAPI void *_darray_pop_at(void *array, u64 index, void *dest);
 #define darray_insert_at(array, index, value)               \
     {                                                       \
             typeof(value) temp = value;                     \
-            array = _darray_insert_at(array, index, &temp)  \
+            array = _darray_insert_at(array, index, &temp); \
     }
 
-#define darray_pop_at(array, index) \
+#define darray_pop_at(array, index, value_ptr) \
     _darray_pop_at(array, index, value_ptr)
 
 #define darray_clear(array) \
