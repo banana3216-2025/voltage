@@ -71,7 +71,7 @@ VAPI void *_darray_pop_at(void *array, u64 index, void *dest);
 #define darray_length(array) \
     _darray_field_get(array, DARRAY_LENGTH)
 
-#define darray_stride(array) \ 
+#define darray_stride(array) \
     _darray_field_get(array, DARRAY_STRIDE)
 
 #define darray_length_set(array, value) \
