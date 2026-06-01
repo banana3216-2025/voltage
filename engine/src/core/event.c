@@ -30,7 +30,6 @@ b8 event_initialize() {
     vzero_memory(&state, sizeof(state));
     is_initialized = TRUE;
 
-    VDEBUG("Event system initialized");
     return TRUE;
 }
 

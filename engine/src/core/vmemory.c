@@ -38,7 +38,6 @@ static const char* memory_tag_strings[MEMORY_TAG_MAX_TAGS] = {
 };
 
 void initialize_memory() {
-    VDEBUG("vmemory started");
     platform_zero_memory(&stats, sizeof(stats));
 }
 
