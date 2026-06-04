@@ -25,8 +25,8 @@ typedef enum memory_tag {
     MEMORY_TAG_MAX_TAGS
 } memory_tag;
 
-void initialize_memory();
-void shutdown_memeory();
+VAPI void initialize_memory();
+VAPI void shutdown_memeory();
 
 VAPI void *vallocate(u64 size, memory_tag tag);
 VAPI void  vfree(void *block, u64 size, memory_tag tag);

@@ -31,7 +31,7 @@ int main(void) {
     if (!application_create(&game_inst)) { VFATEL("Application failed to create"); return 1; }
     if (!application_run()) { VFATEL("application did not shutdwon gracefully"); return 2; }
 
-    shutdown_memeory();
+    initialize_memory();
 
     return 0;
 }

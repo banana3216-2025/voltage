@@ -3,6 +3,7 @@ REM Build script for engine
 SetLocal EnableDelayedExpansion
 
 REM Get a list of all the .c files.
+SET cFilenames=src/core/logger.c src/core/vmemory.c src/core/applications.c src/core/event.c src/platform/platform_win32.c
 SET cFilenames=
 FOR /R %%f in (*.c) do (
     SET cFilenames=!cFilenames! %%f

@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "platform.h"
 
+#define VPLATFORM_WINDOW 1
 #if VPLATFORM_WINDOW
 
 #include <core/logger.h>

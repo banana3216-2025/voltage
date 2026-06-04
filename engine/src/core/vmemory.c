@@ -37,11 +37,11 @@ static const char* memory_tag_strings[MEMORY_TAG_MAX_TAGS] = {
     "SCENE      "
 };
 
-void initialize_memory() {
+VAPI void initialize_memory() {
     platform_zero_memory(&stats, sizeof(stats));
 }
 
-void shutdown_memeory() {
+void shutdown_memory() {
 
 }
 
@@ -101,6 +101,6 @@ char *get_memory_useage_str() {
         offset += length;
     }
 
-    char *out_string = strdup(buffer);
+    char *out_string = _strdup(buffer);
     return out_string;
 }
