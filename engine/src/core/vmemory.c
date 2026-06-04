@@ -10,6 +10,11 @@
 #include <string.h>
 #include <stdio.h>
 
+// Make strdup work for windows and linux without changing code
+#if VPLATFORM_WINDOW
+  #define strdup _strdup
+#endif
+
 struct memory_stats {
     u64 total_allocated;
     u64 tagged_allocations[MEMORY_TAG_MAX_TAGS];
