@@ -3,5 +3,5 @@
 voltage is a game engine made with vulkan
 
 Required programs for compiling
-- ClangD / LLVM
+- Clang / LLVM
 * Vulkan SDK
