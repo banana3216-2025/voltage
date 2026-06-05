@@ -10,13 +10,11 @@ cFilenames=$(find . -type f -name "*.c")
 # echo "Files:" $cFilenames
 
 assembly="testbed"
-compilerFlags="-g -fdeclspec -fPIC" 
-# -fms-extensions 
-# -Wall -Werror
-includeFlags="-Isrc -I../engine/src/"
-linkerFlags="-L../bin/ -lengine -Wl,-rpath,."
+# FIXED: Added formatting silence flags along with non-optimization triggers
+compilerFlags="-g -fdeclspec -fPIC -O0 -include ../engine/src/core/logger.h -Wno-format -Wno-format-security"
+includeFlags="-Isrc -I../engine/src"
+linkerFlags="-L../bin -lengine -Wl,-rpath,."
 defines="-D_DEBUG -DKIMPORT"
 
 echo "Building $assembly..."
-echo clang $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags
 clang $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags

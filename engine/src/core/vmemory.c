@@ -106,6 +106,6 @@ char *get_memory_useage_str() {
         offset += length;
     }
 
-    char *out_string = _strdup(buffer);
+    char *out_string = strdup(buffer);
     return out_string;
 }

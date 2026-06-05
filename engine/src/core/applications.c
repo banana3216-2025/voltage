@@ -1,7 +1,7 @@
 #include "game_types.h"
 #include "applications.h"
 
-#include "logger.h"
+#include "core/logger.h" 
 #include "platform/platform.h"
 #include "core/vmemory.h"
 #include "core/event.h"
@@ -28,12 +28,12 @@ b8 application_create(game *game_inst) {
     initialize_logger();
 
     // TODO: remove this
-    VFATEL("A test message: %f", 3.14f);
-    VERROR("A test message: %f", 3.14f);
-    VWARN("A test message: %f", 3.14f);
-    VINFO("A test message: %f", 3.14f);
-    VDEBUG("A test message: %f", 3.14f);
-    VTRACE("A test message: %f", 3.14f);
+    VFATEL("A test message: %f", 3.14);
+    VERROR("A test message: %f", 3.14);
+    VWARN("A test message: %f", 3.14);
+    VINFO("A test float value: %f", 3.14);
+    VDEBUG("A test message: %f", 3.14);
+    VTRACE("A test message: %f", 3.14);
 
     app_state.is_running = TRUE;
     app_state.is_suspended = FALSE;

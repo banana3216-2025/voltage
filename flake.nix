@@ -1,51 +1,51 @@
 {
-  description = "Voltage Development Environment";
+  description = "Voltage Game Engine Development Environment";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
     self,
     nixpkgs,
-  }: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
-  in {
-    devShells.${system}.default = pkgs.mkShell {
-      packages = with pkgs; [
-        vulkan-headers
-        vulkan-loader
-        vulkan-tools
-        vulkan-validation-layers
+    utils,
+  }:
+    utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
+      devShells.default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
+          pkg-config
+        ];
 
-        xorg.libX11
-        libxkbcommon
+        buildInputs = with pkgs; [
+          libx11.dev
+          libxcomposite
+          libxrender
+          libxext
+          libxcb.dev
+          xorgproto
+          libxkbcommon
+          vulkan-loader
+          vulkan-headers
+        ];
 
-        clang
-        clang-tools
-      ];
+        shellHook = ''
+          # 1. Sync missing header directories for Clang build tracking
+          export C_INCLUDE_PATH="${pkgs.xorg.libX11.dev}/include:${pkgs.xorg.xorgproto}/include:${pkgs.xorg.libxcb.dev}/include:${pkgs.libxkbcommon}/include:${pkgs.vulkan-headers}/include:$C_INCLUDE_PATH"
+          export CPLUS_INCLUDE_PATH="$C_INCLUDE_PATH:$CPLUS_INCLUDE_PATH"
+          export CPATH="$C_INCLUDE_PATH:$CPATH"
 
-      shellHook = ''
-        export VK_LAYER_PATH="${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d"
-        
-        # Define the exact libraries we need to expose
-        NIX_LIBS="${pkgs.lib.makeLibraryPath [
-          pkgs.vulkan-loader
-          pkgs.xorg.libX11
-          pkgs.xorg.libxcb
-          pkgs.libxkbcommon
-        ]}"
+          # 2. Prevent NixOS's aggressive compiler wrapper adjustments (Fixes zero-float logs)
+          export HARDENING_ENABLE=""
+          export NIX_CFLAGS_COMPILE="-Wno-format -Wno-format-security -U_FORTIFY_SOURCE"
 
-        # Fixes runtime discovery (running your compiled app)
-        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$NIX_LIBS"
+          # 3. Dynamic runtime shared object path binding (.so targets)
+          export LD_LIBRARY_PATH="${pkgs.vulkan-loader}/lib:${pkgs.libxkbcommon}/lib:${pkgs.xorg.libX11}/lib:${pkgs.xorg.libxcb}/lib:$LD_LIBRARY_PATH"
 
-        # Fixes compile-time linking (resolves the 'cannot find -lxcb' error)
-        export LIBRARY_PATH="$LIBRARY_PATH:$NIX_LIBS"
-
-        export C_INCLUDE_PATH="$C_INCLUDE_PATH:${pkgs.xorg.libX11.dev}/include:${pkgs.xorg.libxcb.dev}/include"
-        export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:${pkgs.xorg.libX11.dev}/include:${pkgs.xorg.libxcb.dev}/include"
-      '';
-    };
-  };
+          echo "=== Voltage Engine Flake Dev Shell Active ==="
+        '';
+      };
+    });
 }

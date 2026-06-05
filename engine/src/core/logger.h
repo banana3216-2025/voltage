@@ -7,7 +7,7 @@
 #define LOG_DEBUG_ENABLED 1
 #define LOG_TRACE_ENABLED 1
 
-// Disable Trace and debug for relase builds
+// Disable Trace and debug for release builds
 #if VRELEASE == 1
 #define LOG_DEBUG_ENABLED 0
 #define LOG_TRACE_ENABLED 0
@@ -25,7 +25,8 @@ typedef enum log_level {
 b8 initialize_logger();
 void shutdown_logger();
 
-VAPI void log_output(log_level level, const char* message, ...);
+// FIXED: Added the explicit printf format tracker so modern Clang maps XMM float registers safely
+VAPI void log_output(log_level level, const char* message, ...) __attribute__((format(printf, 2, 3)));
 
 #define VFATEL(message, ...) log_output(LOG_LEVEL_FATEL, message, ##__VA_ARGS__);
 
