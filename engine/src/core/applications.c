@@ -31,7 +31,6 @@ b8 application_create(game *game_inst) {
     VFATEL("A test message: %f", 3.14);
     VERROR("A test message: %f", 3.14);
     VWARN("A test message: %f", 3.14);
-    VINFO("A test float value: %f", 3.14);
     VDEBUG("A test message: %f", 3.14);
     VTRACE("A test message: %f", 3.14);
 
