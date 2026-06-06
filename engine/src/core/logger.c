@@ -20,7 +20,7 @@ void shutdown_logger() {
 }
 
 void log_output(log_level level, const char* message, ...) {
-    const char* level_strings[6] = {"[FATEL]: ", "[ERROR]: ", "[WARN]: ", "[INFO]: ", "[DEBUG]: ", "[TRACE]: "};
+    const char* level_strings[6] = {"[FATEL]: ", "[ERROR]: ", "[WARN]:  ", "[INFO]:  ", "[DEBUG]: ", "[TRACE]: "};
     b8 is_error = level < LOG_LEVEL_WARN;
 
     const i32 msg_length = 32000;
