@@ -27,3 +27,4 @@ $(OBJ_DIR)/%.o: %.c
 
 clean:
 	rm -rf $(OBJ_DIR)
+	rm -f $(TARGET)
