@@ -17,6 +17,8 @@
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
           pkg-config
+
+          gnumake
           clang
           clang-tools
         ];
