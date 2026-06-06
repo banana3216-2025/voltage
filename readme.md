@@ -6,7 +6,7 @@ voltage is a game engine made with vulkan
 Required programs for compiling
 - Clang / LLVM
 - Bear(for compile_commnands.json)
-* Vulkan SDK
+- Vulkan SDK
 
 > [!NOTE]
 > After Cloning the Repo you will need to run
