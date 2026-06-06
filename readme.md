@@ -9,8 +9,7 @@ Required programs for compiling
 * Vulkan SDK
 
 > [!NOTE]
-> After Cloning the Repo you will need to run ```
+> After Cloning the Repo you will need to run
+>```
 >make clean
-> bear -- make
-> ```
-
+>bear -- make
