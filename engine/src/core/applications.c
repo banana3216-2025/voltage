@@ -30,7 +30,6 @@ b8 application_create(game *game_inst) {
 
     // Initialize subsystems
     initialize_logger();
-    input_initialize();
 
     // TODO: remove this
     VFATEL("A test message: %f", 3.14);
@@ -47,6 +46,8 @@ b8 application_create(game *game_inst) {
         VERROR("Event system failed to initialize Application Cannot Continue");
         return FALSE;
     }
+
+    input_initialize();
 
     if (!platform_startup(&app_state.platform, game_inst->app_config.name,
                           game_inst->app_config.start_pos_x,

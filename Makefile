@@ -14,4 +14,3 @@ clean:
 	$(MAKE) -C engine clean
 	$(MAKE) -C testbed clean
 	rm -rf bin
-

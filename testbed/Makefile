@@ -1,4 +1,4 @@
-TARGET := ../bin/testbed
+TARGET := ../bin/testbed.exe
 SRC_DIR := src
 OBJ_DIR := obj
 
@@ -6,10 +6,14 @@ SRCS := $(shell find . -type f -name "*.c")
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 CC := clang
-CFLAGS := -g -fdeclspec -fPIC -O0 -include ../engine/src/core/logger.h -Wno-format -Wno-format-security
+# REMOVED -fPIC
+CFLAGS := -g -fdeclspec -O0 -include ../engine/src/core/logger.h -Wno-format -Wno-format-security
 INCLUDES := -Isrc -I../engine/src
-LDFLAGS := -L../bin -lengine -Wl,-rpath,'$$ORIGIN' -Wl,-rpath,.
-DEFINES := -D_DEBUG -DKIMPORT
+
+# CHANGED: Replaced Linux rpath flags with standard Windows library directory linking
+LDFLAGS := -L../bin -lengine
+# Ensure this line in testbed/Makefile looks like this:
+DEFINES := -D_DEBUG -DKIMPORT -DVAPI="__declspec(dllimport)"
 
 .PHONY: all clean
 
