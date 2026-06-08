@@ -1,10 +1,11 @@
-#include "game_types.h"
 #include "applications.h"
+#include "game_types.h"
 
-#include "core/logger.h" 
-#include "platform/platform.h"
-#include "core/vmemory.h"
 #include "core/event.h"
+#include "core/inputs.h"
+#include "core/logger.h"
+#include "core/vmemory.h"
+#include "platform/platform.h"
 
 typedef struct application_state {
     game *game_inst;
@@ -20,12 +21,16 @@ static b8 initialized = FALSE;
 static application_state app_state;
 
 b8 application_create(game *game_inst) {
-    if (initialized) { VERROR("application create called more than once"); return FALSE; }
+    if (initialized) {
+        VERROR("application create called more than once");
+        return FALSE;
+    }
 
     app_state.game_inst = game_inst;
 
     // Initialize subsystems
     initialize_logger();
+    input_initialize();
 
     // TODO: remove this
     VFATEL("A test message: %f", 3.14);
@@ -43,15 +48,11 @@ b8 application_create(game *game_inst) {
         return FALSE;
     }
 
-    if(!platform_startup(
-        &app_state.platform,
-        game_inst->app_config.name,
-        game_inst->app_config.start_pos_x,
-        game_inst->app_config.start_pos_y,
-        game_inst->app_config.start_width,
-        game_inst->app_config.start_height
-    )) 
-    {
+    if (!platform_startup(&app_state.platform, game_inst->app_config.name,
+                          game_inst->app_config.start_pos_x,
+                          game_inst->app_config.start_pos_y,
+                          game_inst->app_config.start_width,
+                          game_inst->app_config.start_height)) {
         return FALSE;
     }
 
@@ -60,7 +61,8 @@ b8 application_create(game *game_inst) {
         return FALSE;
     }
 
-    app_state.game_inst->on_resize(app_state.game_inst, app_state.width, app_state.height);
+    app_state.game_inst->on_resize(app_state.game_inst, app_state.width,
+                                   app_state.height);
 
     initialized = TRUE;
     return TRUE;
@@ -69,7 +71,8 @@ b8 application_create(game *game_inst) {
 b8 application_run() {
     VINFO(get_memory_useage_str());
     while (app_state.is_running) {
-        if(!platform_pump_messages(&app_state.platform)) app_state.is_running = FALSE;
+        if (!platform_pump_messages(&app_state.platform))
+            app_state.is_running = FALSE;
 
         if (!app_state.is_suspended) {
             // TODO: add delta time input
@@ -85,12 +88,17 @@ b8 application_run() {
                 app_state.is_running = FALSE;
                 break;
             }
+
+            // INFO: Input should be processed during frame but only take affect
+            // on the next frame
+            input_update(0);
         }
     }
 
     app_state.is_running = FALSE;
     platform_shutdown(&app_state.platform);
     event_shutdown();
+    input_shutdown();
 
     return TRUE;
 }
