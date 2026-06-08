@@ -20,6 +20,12 @@ typedef struct application_state {
 static b8 initialized = FALSE;
 static application_state app_state;
 
+// Event handlers
+b8 application_on_event(u16 code, void *sender, void *listner_inst,
+                        event_context context);
+b8 application_on_key(u16 code, void *sender, void *listner_inst,
+                      event_context context);
+
 b8 application_create(game *game_inst) {
     if (initialized) {
         VERROR("application create called more than once");
@@ -47,6 +53,9 @@ b8 application_create(game *game_inst) {
         VERROR("Event system failed to initialize Application Cannot Continue");
         return FALSE;
     }
+
+    event_register(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
+    event_register(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
 
     if (!platform_startup(&app_state.platform, game_inst->app_config.name,
                           game_inst->app_config.start_pos_x,
@@ -98,7 +107,56 @@ b8 application_run() {
     app_state.is_running = FALSE;
     platform_shutdown(&app_state.platform);
     event_shutdown();
+
+    event_unregister(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
+    event_unregister(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
     input_shutdown();
 
     return TRUE;
+}
+
+b8 application_on_event(u16 code, void *sender, void *listner_inst,
+                        event_context context) {
+    switch (code) {
+    case EVENT_CODE_APPLICATION_QUIT: {
+        VINFO("EVENT_CODE_APPLICATION_QUIT recieved, shutting down");
+        app_state.is_running = FALSE;
+        return TRUE;
+    }
+    }
+
+    return FALSE;
+}
+
+b8 application_on_key(u16 code, void *sender, void *listner_inst,
+                      event_context context) {
+    if (code == EVENT_CODE_KEY_PRESSED) {
+        u16 key_code = context.u16[0];
+        if (key_code == KEY_ESCAPE) {
+            // NOTE: Technically firing an event to itself, but there may be
+            // other listeners.
+            event_context data = {};
+            event_fire(EVENT_CODE_APPLICATION_QUIT, 0, data);
+
+            // Block anything else from processing this.
+            return TRUE;
+        } else if (key_code == KEY_A) {
+            // Example on checking for a key
+            VDEBUG("Explicit - A key pressed!");
+        } else {
+            VDEBUG("'%c' key pressed in window.", key_code);
+        }
+    } else if (code == EVENT_CODE_KEY_RELEASED) {
+        u16 key_code = context.u16[0];
+        if (key_code == KEY_B) {
+            // Example on checking for a key
+            VDEBUG("Explicit - B key released!");
+        } else {
+            VDEBUG("'%c' key released in window.", key_code);
+        }
+    }
+
+    VDEBUG("test");
+
+    return FALSE;
 }

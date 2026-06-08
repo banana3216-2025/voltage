@@ -2,7 +2,7 @@
 #include "platform.h"
 
 // TEST: Windows platform support
-#define VPLATFORM_WINDOW 1
+// #define VPLATFORM_WINDOW 1
 #if VPLATFORM_WINDOW
 
 #include "core/inputs.h"

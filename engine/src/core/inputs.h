@@ -108,6 +108,8 @@ typedef enum keys {
     DEFINE_KEY(F12, 0x7B),
     DEFINE_KEY(F13, 0x7C),
     DEFINE_KEY(F14, 0x7D),
+    DEFINE_KEY(F15, 0x7E),
+    DEFINE_KEY(F16, 0x7F),
     DEFINE_KEY(F17, 0x80),
     DEFINE_KEY(F18, 0x81),
     DEFINE_KEY(F19, 0x82),
