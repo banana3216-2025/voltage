@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/user/Projects/voltage/build/cmake_install.cmake",
+		"/home/user/Projects/voltage/build/engine/cmake_install.cmake",
+		"/home/user/Projects/voltage/build/testbed/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

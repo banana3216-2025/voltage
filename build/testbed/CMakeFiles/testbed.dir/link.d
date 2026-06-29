@@ -1,0 +1,109 @@
+/home/user/Projects/voltage/bin/testbed: \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/Scrt1.o \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/crti.o \
+  /nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/crtbeginS.o \
+  CMakeFiles/testbed.dir/src/entry.c.o \
+  CMakeFiles/testbed.dir/src/game.c.o \
+  /home/user/Projects/voltage/bin/libengine.so \
+  /nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so.1 \
+  /nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so.6 \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc_nonshared.a \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/ld-linux-x86-64.so.2 \
+  /nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so \
+  /nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so.1 \
+  /nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a \
+  /nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/crtendS.o \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/crtn.o \
+  /nix/store/d6vnmfmcz5b299180issiaad4m96wh8k-vulkan-loader-1.4.341.0/lib/libvulkan.so.1 \
+  /nix/store/7gwd2kvkx1s369cwiv5z4x2xjxbppav6-libx11-1.8.13/lib/libX11.so.6 \
+  /nix/store/jj27mc075js673vkgd8fy6xxr34n8n9i-libxcb-1.17.0/lib/libxcb.so.1 \
+  /nix/store/7gwd2kvkx1s369cwiv5z4x2xjxbppav6-libx11-1.8.13/lib/libX11-xcb.so.1 \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/ld-linux-x86-64.so.2 \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libdl.so.2 \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libm.so.6 \
+  /nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libpthread.so.0 \
+  /nix/store/0nrv9x54jzw1pyqz8kd53a6zckhc1zhn-libxau-1.0.12/lib/libXau.so.6 \
+  /nix/store/0hjbb0k3zn1y8fqm5sn0zfr2h5874qg1-libxdmcp-1.1.5/lib/libXdmcp.so.6
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/Scrt1.o:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/crti.o:
+
+/nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/crtbeginS.o:
+
+CMakeFiles/testbed.dir/src/entry.c.o:
+
+CMakeFiles/testbed.dir/src/game.c.o:
+
+/home/user/Projects/voltage/bin/libengine.so:
+
+/nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so.1:
+
+/nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc.so.6:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libc_nonshared.a:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/ld-linux-x86-64.so.2:
+
+/nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so:
+
+/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib/libgcc_s.so.1:
+
+/nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/libgcc.a:
+
+/nix/store/qxaq7jz61a6zkr2mq49i0zvqip2m2jj8-gcc-15.2.0/lib/gcc/x86_64-unknown-linux-gnu/15.2.0/crtendS.o:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/crtn.o:
+
+/nix/store/d6vnmfmcz5b299180issiaad4m96wh8k-vulkan-loader-1.4.341.0/lib/libvulkan.so.1:
+
+/nix/store/7gwd2kvkx1s369cwiv5z4x2xjxbppav6-libx11-1.8.13/lib/libX11.so.6:
+
+/nix/store/jj27mc075js673vkgd8fy6xxr34n8n9i-libxcb-1.17.0/lib/libxcb.so.1:
+
+/nix/store/7gwd2kvkx1s369cwiv5z4x2xjxbppav6-libx11-1.8.13/lib/libX11-xcb.so.1:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/ld-linux-x86-64.so.2:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libdl.so.2:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libm.so.6:
+
+/nix/store/57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61/lib/libpthread.so.0:
+
+/nix/store/0nrv9x54jzw1pyqz8kd53a6zckhc1zhn-libxau-1.0.12/lib/libXau.so.6:
+
+/nix/store/0hjbb0k3zn1y8fqm5sn0zfr2h5874qg1-libxdmcp-1.1.5/lib/libXdmcp.so.6:

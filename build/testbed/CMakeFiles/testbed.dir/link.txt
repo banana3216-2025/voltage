@@ -1,0 +1,1 @@
+/nix/store/874j5xydsj6nr6i1zdrjvhln5gmxvvrr-clang-wrapper-21.1.8/bin/clang -Xlinker --dependency-file=CMakeFiles/testbed.dir/link.d CMakeFiles/testbed.dir/src/entry.c.o CMakeFiles/testbed.dir/src/game.c.o -o /home/user/Projects/voltage/bin/testbed  -Wl,-rpath,/home/user/Projects/voltage/bin /home/user/Projects/voltage/bin/libengine.so
