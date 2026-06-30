@@ -22,7 +22,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeDetermineCompilerABI.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeDetermineCompilerId.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeDetermineCompilerSupport.cmake"
-  "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeDetermineSystem.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeFindBinUtils.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeGenericSystem.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeInitializeConfigs.cmake"
@@ -30,12 +29,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeParseImplicitIncludeInfo.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeParseImplicitLinkInfo.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeParseLibraryArchitecture.cmake"
-  "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeSystem.cmake.in"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeSystemSpecificInformation.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeSystemSpecificInitialize.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeTestCCompiler.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeTestCompilerCommon.cmake"
-  "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/CMakeUnixFindMake.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/Compiler/ADSP-DetermineCompiler.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/Compiler/ARMCC-DetermineCompiler.cmake"
   "/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/share/cmake-4.1/Modules/Compiler/ARMClang-DetermineCompiler.cmake"
@@ -115,7 +112,6 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/4.1.2/CMakeSystem.cmake"
   "CMakeFiles/4.1.2/CMakeCCompiler.cmake"
   "CMakeFiles/4.1.2/CMakeCCompiler.cmake"
   "CMakeFiles/4.1.2/CMakeCCompiler.cmake"

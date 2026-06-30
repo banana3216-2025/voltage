@@ -36,7 +36,6 @@ b8 application_create(game *game_inst) {
 
     // Initialize subsystems
     initialize_logger();
-    input_initialize();
 
     // TODO: remove this
     VFATEL("A test message: %f", 3.14);
@@ -53,6 +52,8 @@ b8 application_create(game *game_inst) {
         VERROR("Event system failed to initialize Application Cannot Continue");
         return FALSE;
     }
+
+    input_initialize();
 
     event_register(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
     event_register(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
@@ -106,11 +107,12 @@ b8 application_run() {
 
     app_state.is_running = FALSE;
     platform_shutdown(&app_state.platform);
-    event_shutdown();
 
     event_unregister(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
     event_unregister(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
+
     input_shutdown();
+    event_shutdown();
 
     return TRUE;
 }
@@ -155,8 +157,6 @@ b8 application_on_key(u16 code, void *sender, void *listner_inst,
             VDEBUG("'%c' key released in window.", key_code);
         }
     }
-
-    VDEBUG("test");
 
     return FALSE;
 }

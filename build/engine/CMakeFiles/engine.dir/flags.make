@@ -4,7 +4,7 @@
 # compile C with /nix/store/874j5xydsj6nr6i1zdrjvhln5gmxvvrr-clang-wrapper-21.1.8/bin/clang
 C_DEFINES = -DVEXPORT -D_DEBUG -Dengine_EXPORTS
 
-C_INCLUDES = -I/home/user/Projects/voltage/engine/src
+C_INCLUDES = -I/home/user/Projects/voltage/engine/src -I/nix/store/1rhchilgcirwrwmq4h8xqldkn8lx209x-libx11-1.8.13-dev/include -I/nix/store/h11h9pq0d23c8n2k0pd162mgzg1z4jca-xorgproto-2025.1/include -I/nix/store/6fbkwxv11i13lsgq8w1lzlaxm4c2a90b-libxcb-1.17.0-dev/include -isystem /nix/store/yp9izjlvclh8v9zidcnfcnms0kh9j60x-vulkan-headers-1.4.341.0/include
 
 C_FLAGS = -fPIC -g -fdeclspec -Wno-format -Wno-format-security
 

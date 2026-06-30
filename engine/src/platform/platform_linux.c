@@ -125,16 +125,16 @@ b8 platform_pump_messages(platform_state *plat_state) {
 
     b8 quit_flagged = FALSE;
 
-    while (event != 0) {
+    while (event != xcb_poll_for_event(state->connection)) {
         event = xcb_poll_for_event(state->connection);
         if (event == 0)
             break;
 
-        switch (event->response_type & -0x80) {
+        switch (event->response_type & ~0x80) {
         case XCB_KEY_PRESS:
         case XCB_KEY_RELEASE: {
             xcb_key_press_event_t *kb_event = (xcb_key_press_event_t *)event;
-            b8 pressed = event->response_type == XCB_KEY_PRESS;
+            b8 pressed = (event->response_type & ~0x80) == XCB_KEY_PRESS;
             xcb_keycode_t code = kb_event->detail;
             KeySym key_sym = XkbKeycodeToKeysym(state->display, (KeyCode)code,
                                                 0, code & ShiftMask ? 1 : 0);
@@ -148,7 +148,7 @@ b8 platform_pump_messages(platform_state *plat_state) {
         case XCB_BUTTON_RELEASE: {
             xcb_button_press_event_t *mouse_event =
                 (xcb_button_press_event_t *)event;
-            b8 pressed = event->response_type == XCB_BUTTON_PRESS;
+            b8 pressed = (event->response_type & ~0x80) == XCB_BUTTON_PRESS;
             buttons mouse_button = BUTTON_MAX_BUTTONS;
             switch (mouse_event->detail) {
             case XCB_BUTTON_INDEX_1:
@@ -161,13 +161,11 @@ b8 platform_pump_messages(platform_state *plat_state) {
                 mouse_button = BUTTON_RIGHT;
                 break;
             };
-            VINFO("mouse test");
 
             if (mouse_button != BUTTON_MAX_BUTTONS)
                 input_process_mouse(mouse_button, pressed);
-        }
+        } break;
         case XCB_MOTION_NOTIFY: {
-            // TODO: mosue movement
             xcb_motion_notify_event_t *mouse_event =
                 (xcb_motion_notify_event_t *)event;
             input_process_mouse_move(mouse_event->event_x,
@@ -176,7 +174,7 @@ b8 platform_pump_messages(platform_state *plat_state) {
 
         case XCB_CONFIGURE_NOTIFY: {
             // TODO: resizing
-        }
+        } break;
 
         case XCB_CLIENT_MESSAGE: {
             cm = (xcb_client_message_event_t *)event;

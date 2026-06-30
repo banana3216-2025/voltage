@@ -17,6 +17,7 @@
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
           pkg-config
+          cmake
 
           gnumake
           clang
@@ -34,18 +35,13 @@
           vulkan-loader
           vulkan-headers
         ];
+        hardeningDisable = ["fortify"];
 
         shellHook = ''
-          # 1. Sync missing header directories for Clang build tracking
-          export C_INCLUDE_PATH="${pkgs.xorg.libX11.dev}/include:${pkgs.xorg.xorgproto}/include:${pkgs.xorg.libxcb.dev}/include:${pkgs.libxkbcommon}/include:${pkgs.vulkan-headers}/include:$C_INCLUDE_PATH"
-          export CPLUS_INCLUDE_PATH="$C_INCLUDE_PATH:$CPLUS_INCLUDE_PATH"
-          export CPATH="$C_INCLUDE_PATH:$CPATH"
+          # 2. Expose the Vulkan SDK path for CMake's internal modules
+          export VULKAN_SDK="${pkgs.vulkan-headers}"
 
-          # 2. Prevent NixOS's aggressive compiler wrapper adjustments (Fixes zero-float logs)
-          export HARDENING_ENABLE=""
-          export NIX_CFLAGS_COMPILE="-Wno-format -Wno-format-security -U_FORTIFY_SOURCE"
-
-          # 3. Dynamic runtime shared object path binding (.so targets)
+          # 3. Inform the dynamic linker where the runtime Vulkan loader resides
           export LD_LIBRARY_PATH="${pkgs.vulkan-loader}/lib:${pkgs.libxkbcommon}/lib:${pkgs.xorg.libX11}/lib:${pkgs.xorg.libxcb}/lib:$LD_LIBRARY_PATH"
 
           echo "=== Voltage Engine Flake Dev Shell Active ==="
