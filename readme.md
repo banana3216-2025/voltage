@@ -3,12 +3,21 @@
 voltage is a game engine made with vulkan
 
 ## Building
+
 Required programs for compiling
+
 - Clang / LLVM
-- Bear / compiledb (for compile_commnands.json)
+- Cmake
 - Vulkan SDK
 
-> [!NOTE]
-> After Cloning the Repo you will need to generate compile_commands.json for your maching
-> Windows Tool: compiledb
-> Linux Tool: Bear
+to setup cmake building run
+
+```
+cmake -B build -D CMAKE_C_COMPILER=clang -D CMAKE_EXPORT_COMPILE_COMMANDS=ON
+```
+
+to build run
+
+```
+cmake --build build
+```

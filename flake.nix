@@ -31,6 +31,7 @@
           libxext
           libxcb.dev
           xorgproto
+          libXdmcp
           libxkbcommon
           vulkan-loader
           vulkan-headers
@@ -38,11 +39,8 @@
         hardeningDisable = ["fortify"];
 
         shellHook = ''
-          # 2. Expose the Vulkan SDK path for CMake's internal modules
           export VULKAN_SDK="${pkgs.vulkan-headers}"
-
-          # 3. Inform the dynamic linker where the runtime Vulkan loader resides
-          export LD_LIBRARY_PATH="${pkgs.vulkan-loader}/lib:${pkgs.libxkbcommon}/lib:${pkgs.xorg.libX11}/lib:${pkgs.xorg.libxcb}/lib:$LD_LIBRARY_PATH"
+          export LD_LIBRARY_PATH="${pkgs.vulkan-loader}/lib:${pkgs.libxkbcommon}/lib:${pkgs.libx11}/lib:${pkgs.libxcb}/lib:$LD_LIBRARY_PATH"
 
           echo "=== Voltage Engine Flake Dev Shell Active ==="
         '';
