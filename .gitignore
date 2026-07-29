@@ -1,2 +1,5 @@
 .cache/
 .direnv/
+.direnv/*
+/.direnv/
+/.direnv/*
