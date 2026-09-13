@@ -1,0 +1,6 @@
+set(CMAKE_RC_COMPILER "/nix/store/8sv04sd04gzyy29ppznzl2xhw7l5n469-x86_64-w64-mingw32-gcc-wrapper-15.2.0/bin/x86_64-w64-mingw32-windres")
+set(CMAKE_RC_COMPILER_ARG1 "")
+set(CMAKE_RC_COMPILER_LOADED 1)
+set(CMAKE_RC_SOURCE_FILE_EXTENSIONS rc;RC)
+set(CMAKE_RC_OUTPUT_EXTENSION .res)
+set(CMAKE_RC_COMPILER_ENV_VAR "RC")

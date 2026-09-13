@@ -1,0 +1,1 @@
+ "/home/a/Projects/voltage/vulkan_windows_sdk/lib/vulkan-1.lib" -luser32 -lws2_32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

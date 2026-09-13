@@ -85,18 +85,22 @@ STATIC_ASSERT(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
 // ============================================================================
 // API Export/Import Directives for Shared Libraries
 // ============================================================================
+#if defined(_WIN32) || defined(__WIN32__) || defined(MSC_VER)
+#define VPLATFORM_WINDOWS 1
+#endif
+
+// Handle dynamic library visibility switches
 #if defined(VPLATFORM_WINDOWS)
-#ifdef KEXPORT
-// Building the engine shared library (DLL)
+#if defined(VEXPORT)
+// We are currently BUILDING the engine DLL
 #define VAPI __declspec(dllexport)
 #else
-// Linking against the engine shared library inside the executable
+// We are building an external executable (like testbed) LINKING the engine DLL
 #define VAPI __declspec(dllimport)
 #endif
 #else
-// Linux, Android, Unix, and Apple platforms do not use __declspec.
-// Instead, symbols are exported by default, or managed via compiler flags.
-#if defined(__GNUC__) || defined(__clang__)
+// Linux/Unix native visibility fallback
+#if defined(__GNUC__) && __GNUC__ >= 4
 #define VAPI __attribute__((visibility("default")))
 #else
 #define VAPI

@@ -15,6 +15,12 @@
 #include <xcb/xcb.h>
 #include <xcb/xproto.h>
 
+#include <fcntl.h>
+#include <netdb.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
 #if _POSIX_C_SOURCE >= 199309L
 #include <time.h>
 #else
@@ -125,11 +131,7 @@ b8 platform_pump_messages(platform_state *plat_state) {
 
     b8 quit_flagged = FALSE;
 
-    while (event != xcb_poll_for_event(state->connection)) {
-        event = xcb_poll_for_event(state->connection);
-        if (event == 0)
-            break;
-
+    while ((event = xcb_poll_for_event(state->connection)) != 0) {
         switch (event->response_type & ~0x80) {
         case XCB_KEY_PRESS:
         case XCB_KEY_RELEASE: {
@@ -242,6 +244,102 @@ void platform_sleep(u64 ms) {
     }
     usleep((ms % 1000) * 1000);
 #endif
+}
+
+b8 platform_networking_startup(platform_state *plat_state) { return TRUE; }
+void platform_networking_shutdown() { return; }
+
+void platform_networking_host(int port, char *host_string, void *output) {
+    struct sockaddr_in *host = (struct sockaddr_in *)output;
+
+    host->sin_family = AF_INET;
+    host->sin_port = htons(port);
+    inet_pton(AF_INET, host_string, &host->sin_addr);
+}
+
+b8 platform_networking_socket(int port, void *socket_pointer) {
+    int socketfd;
+
+    if (port == -1) {
+        socketfd = socket(AF_INET, SOCK_DGRAM, 0);
+        if (socketfd < 0) {
+            VERROR("Failed to create socket");
+            return FALSE;
+        }
+    } else {
+        struct addrinfo hints;
+        struct addrinfo *res;
+
+        memset(&hints, 0, sizeof(hints));
+        hints.ai_family = AF_UNSPEC;
+        hints.ai_socktype = SOCK_DGRAM;
+        hints.ai_flags = AI_PASSIVE;
+
+        char port_string[8];
+        snprintf(port_string, sizeof(port_string), "%d", port);
+
+        int addrinfo_result = getaddrinfo(NULL, port_string, &hints, &res);
+        if (addrinfo_result != 0) {
+            VERROR("failed to get network info: %s\n",
+                   gai_strerror(addrinfo_result));
+            return FALSE;
+        }
+
+        socketfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+        if (socketfd < 0) {
+            perror("Failed to create socket");
+            freeaddrinfo(res);
+            return FALSE;
+        }
+
+        int allow = 1;
+        setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &allow, sizeof(int));
+
+        int bind_result = bind(socketfd, res->ai_addr, res->ai_addrlen);
+        if (bind_result != 0) {
+            VERROR("Failed to bind socket to port");
+            freeaddrinfo(res);
+            return FALSE;
+        }
+
+        freeaddrinfo(res);
+    }
+
+    int flags = fcntl(socketfd, F_GETFL, 0);
+    if (flags == -1) {
+        VERROR("Failed to get socket flags");
+        close(socketfd);
+        return FALSE;
+    }
+
+    if (fcntl(socketfd, F_SETFL, flags | O_NONBLOCK) == -1) {
+        VERROR("Failed to set socket to non-blocking");
+        close(socketfd);
+        return FALSE;
+    }
+
+    *(int *)socket_pointer = socketfd;
+    return TRUE;
+}
+
+void platform_networking_close(void *socket_pointer) {
+    int socketfd = *(int *)socket_pointer;
+    close(socketfd);
+}
+
+int platform_networking_send_packet(void *socket_pointer, void *buffer,
+                                    int buffer_length, void *target_host) {
+    int socketfd = *(int *)socket_pointer;
+    return sendto(socketfd, buffer, buffer_length, 0, target_host,
+                  sizeof(struct sockaddr_in));
+}
+
+int platform_networking_recive_packet(void *socket_pointer, void *buffer,
+                                      int buffer_length, void *origin_host) {
+    int socketfd = *(int *)socket_pointer;
+    socklen_t *origin_length = 0;
+    return recvfrom(socketfd, buffer, buffer_length, 0, origin_host,
+                    origin_length);
 }
 
 keys translate_keycode(u32 x_keycode) {

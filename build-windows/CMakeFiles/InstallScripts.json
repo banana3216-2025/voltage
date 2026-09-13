@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/a/Projects/voltage/build-windows/cmake_install.cmake",
+		"/home/a/Projects/voltage/build-windows/engine/cmake_install.cmake",
+		"/home/a/Projects/voltage/build-windows/testbed/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

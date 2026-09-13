@@ -25,13 +25,15 @@ typedef enum log_level {
 b8 initialize_logger();
 void shutdown_logger();
 
-// FIXED: Added the explicit printf format tracker so modern Clang maps XMM float registers safely
-VAPI void log_output(log_level level, const char* message, ...) __attribute__((format(printf, 2, 3)));
+VAPI void log_output(log_level level, const char *message,
+                     ...); //__attribute__((format(printf, 2, 3)));
 
-#define VFATEL(message, ...) log_output(LOG_LEVEL_FATEL, message, ##__VA_ARGS__);
+#define VFATEL(message, ...)                                                   \
+    log_output(LOG_LEVEL_FATEL, message, ##__VA_ARGS__);
 
 #ifndef VERROR
-#define VERROR(message, ...) log_output(LOG_LEVEL_ERROR, message, ##__VA_ARGS__);
+#define VERROR(message, ...)                                                   \
+    log_output(LOG_LEVEL_ERROR, message, ##__VA_ARGS__);
 #endif
 
 #if LOG_WARN_ENABLED == 1
@@ -47,13 +49,15 @@ VAPI void log_output(log_level level, const char* message, ...) __attribute__((f
 #endif
 
 #if LOG_DEBUG_ENABLED == 1
-#define VDEBUG(message, ...) log_output(LOG_LEVEL_DEBUG, message, ##__VA_ARGS__);
+#define VDEBUG(message, ...)                                                   \
+    log_output(LOG_LEVEL_DEBUG, message, ##__VA_ARGS__);
 #else
 #define VDEBUG(message, ...)
 #endif
 
 #if LOG_TRACE_ENABLED == 1
-#define VTRACE(message, ...) log_output(LOG_LEVEL_TRACE, message, ##__VA_ARGS__);
+#define VTRACE(message, ...)                                                   \
+    log_output(LOG_LEVEL_TRACE, message, ##__VA_ARGS__);
 #else
 #define VTRACE(message, ...)
 #endif

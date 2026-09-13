@@ -1,22 +1,29 @@
 project(engine C)
 
-# Find all C files recursively
-file(GLOB_RECURSE ENGINE_SRCS "src/*.c")
+# Find all C files EXCEPT your explicit platform directories first
+file(GLOB_RECURSE ENGINE_SRCS 
+    "src/containers/*.c"
+    "src/core/*.c"
+    "src/renderer/*.c"
+)
 
-# Create the shared library target (libengine.so)
+# Append ONLY the correct platform layer file depending on the compilation target OS
+if(WIN32)
+    list(APPEND ENGINE_SRCS "src/platform/platform_win32.c")
+else()
+    list(APPEND ENGINE_SRCS "src/platform/platform_linux.c")
+endif()
+
+# Create the shared library target
 add_library(engine SHARED ${ENGINE_SRCS})
 
-# Compile definitions
 target_compile_definitions(engine PRIVATE VEXPORT)
-
-# Include paths
 target_include_directories(engine PUBLIC src)
 
 # Platform-specific linking logic
 if(WIN32)
-    # Windows specific directories and libraries
-    target_link_directories(engine PRIVATE $ENV{VULKAN_SDK}/lib)
-    target_link_libraries(engine PRIVATE Vulkan::Vulkan user32)
+    # ws2_32 provides WSAStartup and networking implementations on Windows systems
+    target_link_libraries(engine PRIVATE Vulkan::Vulkan user32 ws2_32)
 else()
     find_package(PkgConfig REQUIRED)
     

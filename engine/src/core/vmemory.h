@@ -19,7 +19,8 @@ typedef enum memory_tag {
     MEMORY_TAG_TRANSFORM,
     MEMORY_TAG_ENTITY,
     MEMORY_TAG_ENTITY_NODE,
-    MEMORY_TAG_SCREN,
+    MEMORY_TAG_SCREEN,
+    MEMORY_TAG_NETWORK,
 
     // Always be the last tag
     MEMORY_TAG_MAX_TAGS
@@ -29,7 +30,7 @@ VAPI void initialize_memory();
 VAPI void shutdown_memeory();
 
 VAPI void *vallocate(u64 size, memory_tag tag);
-VAPI void  vfree(void *block, u64 size, memory_tag tag);
+VAPI void vfree(void *block, u64 size, memory_tag tag);
 VAPI void *vzero_memory(void *block, u64 size);
 VAPI void *vcopy_memory(void *dest, const void *source, u64 size);
 VAPI void *vset_memory(void *block, i32 value, u64 size);

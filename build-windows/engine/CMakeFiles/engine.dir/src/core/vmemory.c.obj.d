@@ -1,0 +1,20 @@
+engine/CMakeFiles/engine.dir/src/core/vmemory.c.obj: \
+ /home/a/Projects/voltage/engine/src/core/vmemory.c \
+ /home/a/Projects/voltage/engine/src/defines.h \
+ /home/a/Projects/voltage/engine/src/core/vmemory.h \
+ /home/a/Projects/voltage/engine/src/core/logger.h \
+ /home/a/Projects/voltage/engine/src/platform/platform.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/string.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/crtdefs.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/corecrt.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/_mingw.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/_mingw_mac.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/_mingw_secapi.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/vadefs.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/sdks/_mingw_ddk.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/sec_api/string_s.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/stdio.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/corecrt_stdio_config.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/_mingw_off_t.h \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/swprintf.inl \
+ /nix/store/6xjzv8s03cp5kj8l3d9vri5s3vcig1jy-x86_64-w64-mingw32-gcc-15.2.0/x86_64-w64-mingw32/sys-include/sec_api/stdio_s.h

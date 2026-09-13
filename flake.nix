@@ -13,37 +13,68 @@
   }:
     utils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {inherit system;};
+
+      mingwPkgs = pkgs.pkgsCross.mingwW64;
     in {
-      devShells.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          pkg-config
-          cmake
+      devShells = {
+        default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            pkg-config
+            cmake
+            gnumake
+            clang
+            clang-tools
+          ];
 
-          gnumake
-          clang
-          clang-tools
-        ];
+          buildInputs = with pkgs; [
+            libx11.dev
+            libxcomposite
+            libxrender
+            libxext
+            libxcb.dev
+            xorgproto
+            libXdmcp
+            libxkbcommon
+            vulkan-loader
+            vulkan-headers
+          ];
+          hardeningDisable = ["fortify"];
 
-        buildInputs = with pkgs; [
-          libx11.dev
-          libxcomposite
-          libxrender
-          libxext
-          libxcb.dev
-          xorgproto
-          libXdmcp
-          libxkbcommon
-          vulkan-loader
-          vulkan-headers
-        ];
-        hardeningDisable = ["fortify"];
+          shellHook = ''
+            export VULKAN_SDK="${pkgs.vulkan-headers}"
+            echo "=== Voltage Engine Native Linux Dev Shell Active ==="
+          '';
+        };
 
-        shellHook = ''
-          export VULKAN_SDK="${pkgs.vulkan-headers}"
-          export LD_LIBRARY_PATH="${pkgs.vulkan-loader}/lib:${pkgs.libxkbcommon}/lib:${pkgs.libx11}/lib:${pkgs.libxcb}/lib:$LD_LIBRARY_PATH"
+        # WINDOWS SHELL: Cross-compilation & Wine Testing
+        windows = pkgs.mkShell {
+          nativeBuildInputs = [
+            mingwPkgs.buildPackages.gcc
+            mingwPkgs.buildPackages.cmake
+            pkgs.gnumake
+            pkgs.wineWow64Packages.stable
+          ];
 
-          echo "=== Voltage Engine Flake Dev Shell Active ==="
-        '';
+          buildInputs = [
+            mingwPkgs.windows.pthreads
+          ];
+
+          shellHook = ''
+            export VULKAN_SDK="$PWD/vulkan_windows_sdk"
+
+            export WINEARCH="win64"
+            export WINEPREFIX="$HOME/.wine_wow64_voltage"
+
+            # Simple alias helpers to streamline your iteration
+            alias build-win="cd ~/Projects/voltage/build-windows && rm -rf * && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchain-mingw.cmake .. && cmake --build ."
+            alias run-win="wine ~/Projects/voltage/bin/testbed.exe"
+
+            echo "=== Voltage Engine Windows Cross-Compile Shell Active ==="
+            echo "Available Shortcuts:"
+            echo "  build-win : Flush, re-configure, and compile the Windows targets"
+            echo "  run-win   : Instantly launch your testbed.exe executable using Wine"
+          '';
+        };
       };
     });
 }

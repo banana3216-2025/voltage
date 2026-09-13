@@ -5,6 +5,7 @@
 #include "core/event.h"
 #include "core/inputs.h"
 #include "core/logger.h"
+#include "core/networking.h"
 #include "core/vmemory.h"
 #include "platform/platform.h"
 
@@ -68,6 +69,8 @@ b8 application_create(game *game_inst) {
         return FALSE;
     }
 
+    network_initialize(&app_state.platform);
+
     if (!app_state.game_inst->initialize(app_state.game_inst)) {
         VFATEL("Game failed to initialize.");
         return FALSE;
@@ -88,7 +91,7 @@ b8 application_run() {
     u8 frame_count = 0;
     f64 target_frame_seconds = 1.0f / 60.0f;
 
-    VINFO(get_memory_useage_str());
+    VINFO("%s", get_memory_useage_str());
     while (app_state.is_running) {
         if (!platform_pump_messages(&app_state.platform))
             app_state.is_running = FALSE;
@@ -137,13 +140,16 @@ b8 application_run() {
     }
 
     app_state.is_running = FALSE;
-    platform_shutdown(&app_state.platform);
 
     event_unregister(EVENT_CODE_APPLICATION_QUIT, 0, application_on_event);
     event_unregister(EVENT_CODE_KEY_PRESSED, 0, application_on_key);
 
     input_shutdown();
     event_shutdown();
+
+
+    network_shutdown();
+    platform_shutdown(&app_state.platform);
 
     return TRUE;
 }

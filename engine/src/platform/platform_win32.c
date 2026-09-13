@@ -2,19 +2,23 @@
 #include "platform.h"
 
 // TEST: Windows platform support
-// #define VPLATFORM_WINDOW 1
+#define VPLATFORM_WINDOW 1
 #if VPLATFORM_WINDOW
 
 #include "core/inputs.h"
 #include "core/logger.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <windowsx.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 typedef struct internal_state {
     HINSTANCE h_instance;
     HWND hwnd;
+    int networking_iresult;
 } internal_state;
 
 // CLock
@@ -29,6 +33,7 @@ b8 platform_startup(platform_state *plat_state, const char *appication_name,
     plat_state->internal_state = malloc(sizeof(internal_state));
     internal_state *state = (internal_state *)plat_state->internal_state;
 
+    state->networking_iresult = 0;
     state->h_instance = GetModuleHandle(0);
 
     HICON icon = LoadIcon(state->h_instance, IDI_APPLICATION);
@@ -251,6 +256,109 @@ LRESULT CALLBACK win32_process_message(HWND hwnd, u32 msg, WPARAM w_param,
     }
 
     return DefWindowProc(hwnd, msg, w_param, l_param);
+}
+
+b8 platform_networking_startup(platform_state *plat_state) {
+    internal_state *state = (internal_state *)plat_state->internal_state;
+    WSADATA wsa_data = {0};
+
+    state->networking_iresult = WSAStartup(MAKEWORD(2, 2), &wsa_data);
+    if (state->networking_iresult != 0) {
+        VERROR("Windows networking failed to startup: %d",
+               state->networking_iresult);
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+void platform_networking_shutdown() { WSACleanup(); }
+
+void platform_networking_host(int port, char *host_string, void *output) {
+    struct sockaddr_in *host = (struct sockaddr_in *)output;
+
+    host->sin_family = AF_INET;
+    host->sin_port = htons(port);
+    inet_pton(AF_INET, host_string, &host->sin_addr);
+}
+
+b8 platform_networking_socket(int port, void *socket_pointer) {
+    SOCKET socketfd = INVALID_SOCKET;
+
+    if (port == -1) {
+        socketfd = socket(AF_INET, SOCK_DGRAM, 0);
+        if (socketfd == INVALID_SOCKET) {
+            VERROR("Failed to create socket");
+            return FALSE;
+        }
+    } else {
+        struct addrinfo hints;
+        struct addrinfo *res;
+
+        memset(&hints, 0, sizeof(hints));
+        hints.ai_family = AF_UNSPEC;
+        hints.ai_socktype = SOCK_DGRAM;
+        hints.ai_flags = AI_PASSIVE;
+
+        char port_string[8];
+        snprintf(port_string, sizeof(port_string), "%d", port);
+
+        int addrinfo_result = getaddrinfo(NULL, port_string, &hints, &res);
+        if (addrinfo_result != 0) {
+            VERROR("failed to get network info: %i\n", addrinfo_result);
+            return FALSE;
+        }
+
+        socketfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+        if (socketfd == INVALID_SOCKET) {
+            perror("Failed to create socket");
+            freeaddrinfo(res);
+            return FALSE;
+        }
+
+        int allow = 1;
+        setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, (const char *)&allow,
+                   sizeof(int));
+
+        int iresult = bind(socketfd, res->ai_addr, res->ai_addrlen);
+        if (iresult == SOCKET_ERROR) {
+            VERROR("Failed to bind socket to port, %u", WSAGetLastError());
+            freeaddrinfo(res);
+            closesocket(socketfd);
+            return FALSE;
+        }
+
+        freeaddrinfo(res);
+    }
+
+    u_long mode = 1;
+    if (ioctlsocket(socketfd, FIONBIO, &mode) != NO_ERROR) {
+        VERROR("Failed to set socket to non-blocking");
+        closesocket(socketfd);
+        return FALSE;
+    }
+
+    *(SOCKET *)socket_pointer = socketfd;
+    return TRUE;
+}
+
+void platform_networking_close(void *socket_pointer) {
+    SOCKET socketfd = *(SOCKET *)socket_pointer;
+    closesocket(socketfd);
+}
+
+int platform_networking_send_packet(void *socket_pointer, void *buffer,
+                                    int buffer_length, void *target_host) {
+    int socketfd = *(SOCKET *)socket_pointer;
+    return sendto(socketfd, buffer, buffer_length, 0, target_host,
+                  sizeof(struct sockaddr_in));
+}
+int platform_networking_recive_packet(void *socket_pointer, void *buffer,
+                                      int buffer_length, void *origin_host) {
+    int socketfd = *(SOCKET *)socket_pointer;
+    socklen_t *origin_length = 0;
+    return recvfrom(socketfd, buffer, buffer_length, 0, origin_host,
+                    origin_length);
 }
 
 #endif // VPLATFORM_WINDOWS
