@@ -1,5 +1,7 @@
 #include "renderer_backend.h"
 
+#include "vulkan/vulkan_backend.h"
+
 b8 renderer_backend_create(renderer_backend_type type,
                            struct platform_state *plat_state,
                            renderer_backend *out_renderer_backend) {
@@ -7,7 +9,11 @@ b8 renderer_backend_create(renderer_backend_type type,
 
     switch (type) {
     case RENDERER_BACKEND_TYPE_VULKAN:
-        // TODO: Fill out(assign function pointers)
+        out_renderer_backend->initialize = vulkan_renderer_backend_initialize;
+        out_renderer_backend->shutdown = vulkan_renderer_backend_shutdown;
+        out_renderer_backend->begin_frame = vulkan_renderer_backend_begin_frame;
+        out_renderer_backend->end_frame = vulkan_renderer_backend_end_frame;
+        out_renderer_backend->resize = vulkan_renderer_backend_resize;
         return TRUE;
     default:
         break;

@@ -1,3 +1,0 @@
-/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/bin/cmake -E rm -f CMakeFiles/engine.dir/objects.a
-/nix/store/8sv04sd04gzyy29ppznzl2xhw7l5n469-x86_64-w64-mingw32-gcc-wrapper-15.2.0/bin/x86_64-w64-mingw32-ar qc CMakeFiles/engine.dir/objects.a @CMakeFiles/engine.dir/objects1.rsp
-/nix/store/8sv04sd04gzyy29ppznzl2xhw7l5n469-x86_64-w64-mingw32-gcc-wrapper-15.2.0/bin/x86_64-w64-mingw32-gcc -shared -o /home/a/Projects/voltage/bin/libengine.dll -Wl,--out-implib,/home/a/Projects/voltage/bin/libengine.dll.a -Wl,--major-image-version,0,--minor-image-version,0 -Wl,--whole-archive CMakeFiles/engine.dir/objects.a -Wl,--no-whole-archive @CMakeFiles/engine.dir/linkLibs.rsp

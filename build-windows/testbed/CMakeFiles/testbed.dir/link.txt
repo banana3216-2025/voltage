@@ -1,3 +1,0 @@
-/nix/store/r9941n32g4wyvggz2703dlplbdq8a6rd-cmake-4.1.2/bin/cmake -E rm -f CMakeFiles/testbed.dir/objects.a
-/nix/store/8sv04sd04gzyy29ppznzl2xhw7l5n469-x86_64-w64-mingw32-gcc-wrapper-15.2.0/bin/x86_64-w64-mingw32-ar qc CMakeFiles/testbed.dir/objects.a @CMakeFiles/testbed.dir/objects1.rsp
-/nix/store/8sv04sd04gzyy29ppznzl2xhw7l5n469-x86_64-w64-mingw32-gcc-wrapper-15.2.0/bin/x86_64-w64-mingw32-gcc -Wl,--whole-archive CMakeFiles/testbed.dir/objects.a -Wl,--no-whole-archive -o /home/a/Projects/voltage/bin/testbed.exe -Wl,--out-implib,/home/a/Projects/voltage/bin/libtestbed.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/testbed.dir/linkLibs.rsp

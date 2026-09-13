@@ -9,6 +9,8 @@
 #include "core/vmemory.h"
 #include "platform/platform.h"
 
+#include "renderer/renderer_frontend.h"
+
 typedef struct application_state {
     game *game_inst;
     b8 is_running;
@@ -71,6 +73,11 @@ b8 application_create(game *game_inst) {
 
     network_initialize(&app_state.platform);
 
+    if (!renderer_initialize(game_inst->app_config.name, &app_state.platform)) {
+        VFATEL("Failed to initialize a renderer closing Application");
+        return FALSE;
+    }
+
     if (!app_state.game_inst->initialize(app_state.game_inst)) {
         VFATEL("Game failed to initialize.");
         return FALSE;
@@ -116,6 +123,11 @@ b8 application_run() {
                 break;
             }
 
+            // TODO: refactor packet creation;
+            render_packet packet;
+            packet.delta_time = delta;
+            renderer_draw_frame(&packet);
+
             f64 frame_end_time = platform_get_absolute_time();
             f64 frame_elasped_time = frame_end_time - frame_start_time;
             running_time += frame_elasped_time;
@@ -147,6 +159,7 @@ b8 application_run() {
     input_shutdown();
     event_shutdown();
 
+    renderer_shutdown();
 
     network_shutdown();
     platform_shutdown(&app_state.platform);
